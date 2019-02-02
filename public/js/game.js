@@ -109,6 +109,7 @@ if (socket != undefined) {
                 var connectedUser = document.createElement('a');
                 connectedUser.setAttribute('class', 'list-group-item list-group-item-action list-group-item-primary');
                 connectedUser.setAttribute('onclick', 'openChatWith("' + data.connectedUsers[userToChat] + '")');
+                connectedUser.setAttribute('color', 'black');
                 connectedUser.textContent = data.connectedUsers[userToChat];
                 connectedUsersList.appendChild(connectedUser);
                 connectedUsersList.insertBefore(connectedUser, connectedUsersList.firstChild);
@@ -198,8 +199,21 @@ if (socket != undefined) {
                 to: currentChatWith
             });
 
+            textarea.value("");
+
             event.preventDefault();
         }
+    });
+
+    //Handle send button
+    send.addEventListener('click', function () {
+        socket.emit('input', {
+            message: textarea.value,
+            from: localUserName,
+            to: currentChatWith
+        });
+
+        textarea.value("");
     });
 
     //Handle Chat Clear
