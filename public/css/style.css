@@ -1,0 +1,50 @@
+#form{
+  /* background-image: url('../images/bg4.png'); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: fixed;
+}
+
+
+#chat-page{
+  display: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: fixed;
+}
+
+#messages {
+  height: 300px;
+  overflow: hidden;
+}
+
+.chat-message {
+  margin: 1.5%;
+  font-size:  1vw;;
+
+}
+
+#chat-box{
+  display: none;
+}
+
+#h2Hello{
+  top:20%;
+  left:50%;
+  align-content: center;
+  font-size:1vw;
+  font-weight: bold;
+}
+
