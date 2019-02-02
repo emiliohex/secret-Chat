@@ -1,5 +1,4 @@
-$("#userNameLogin").val("Alon");
-$("#userPasswordLogin").val("seadata");
+
 
 var localUserName;
 var selectedUserToChat;
