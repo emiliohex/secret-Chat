@@ -1,99 +1,104 @@
-<div id="form" align="center">
-
-    <img src="images/lock.png" border="1" width="12%" />
-    <div class="panel panel-default w-25 p-3" id="miniform">
-        <div class="panel-body">
+<div id="bg">
 
 
-            <div class="input-group lead">
-                <span class="input-group-addon inputlg">
-                    <span style="font-size: 16px">
-                        <b>User Name:</b>
+    <div id="form" align="center">
+
+        <img src="images/lock.png"  width="12%" />
+        <div class="panel panel-default w-25 p-3" id="miniform">
+            <div class="panel-body">
+
+
+                <div class="input-group lead">
+                    <span class="input-group-addon inputlg">
+                        <span style="font-size: 16px">
+                            <b>User Name:</b>
+                        </span>
                     </span>
-                </span>
 
-                <input type="text" id="userNameLogin" style="margin-right:10px;" class="form-control input-lg" placeholder="Enter your user name"
-                />
+                    <input type="text" id="userNameLogin" style="margin-right:10px;" class="form-control input-lg" placeholder="Enter your user name"
+                    />
 
-            </div>
-            <br>
-            <div class="input-group lead">
-                <span class="input-group-addon inputlg">
-                    <span style="font-size: 16px">
-                        <b>Password:</b>
+                </div>
+                <br>
+                <div class="input-group lead">
+                    <span class="input-group-addon inputlg">
+                        <span style="font-size: 16px">
+                            <b>Password:</b>
+                        </span>
                     </span>
-                </span>
 
-                <input type="password" id="userPasswordLogin" class="form-control input-lg" placeholder="Enter your password" />
+                    <input type="password" id="userPasswordLogin" class="form-control input-lg" placeholder="Enter your password" />
+                </div>
+
+
+
+                <br/>
+
+                <div id='form-error' style="display: none;">
+                    <span style="color:red"></span>
+                </div>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg" id="sign-in">Submit</button>
+                <br>
+                <br> {{!--
+                <img src="images/poster.PNG" height="500px" /> --}}
             </div>
-
-
-
-            <br/>
-
-            <div id='form-error' style="display: none;">
-                <span style="color:red"></span>
-            </div>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg" id="sign-in">Submit</button>
-            <br>
-            <br> {{!--
-            <img src="images/poster.PNG" height="500px" /> --}}
         </div>
+        <br>
+
     </div>
-    <br>
-
-</div>
 
 
 
-<div id="chat-page" class="row">
-    <div class="col-md-6 offset-md-3 col-sm-12">
-        <h1 class="text-center">
-            Secret Chat
-        </h1>
-        <br>
-        <div id="h2Hello" class="text-center"></div>
-        <div id="status"></div>
-        <br>
+    <div id="chat-page" class="row">
+        <div class="col-md-6 offset-md-3 col-sm-12">
+            <h1 class="text-center">
+                Secret Chat
+            </h1>
+            <br>
+            <div id="h2Hello" class="text-center"></div>
+            <div id="status"></div>
+            <br>
 
-        <table border="2" class="table table-bordered table-dark">
-            <tr>
-                <td id="usersTD">
-                    <div id="connected" class="text-center">Connected users:</div>
-                    <br>
-                    <div id="connectedUsers" class="card-block">
-
-                    </div>
-
-
-                </td>
-                <td>
-                    <div id="chat">
-
-                        <div class="card" id="chat-box">
-                            <div id="messages" class="card-block">
-
-                            </div>
-
-                            <br>
-                            <textarea id="textarea" class="form-control" placeholder="Enter message..."></textarea>
-                            <br>
-                            <div class="text-center">
-                                <button id="send" class="btn btn-primary">Send</button>
-                                <button id="clear" class="btn btn-danger">Clear</button>
-                            </div>
-
+            <table border="2" class="table table-bordered table-dark" align="center">
+                <tr>
+                    <td id="usersTD">
+                        <div id="connected" class="text-center">Connected users:</div>
+                        <br>
+                        <div id="connectedUsers" class="card-block">
 
                         </div>
 
-                    </div>
-                </td>
 
-            </tr>
-        </table>
+                    </td>
+                    <td>
+                        <div id="chat">
 
+                            <div class="card" id="chat-box">
+                                <div id="messages" class="card-block">
+
+                                </div>
+
+                                <br>
+                                <textarea id="textarea" class="form-control" placeholder="Enter message..."></textarea>
+                                <br>
+                                <div class="text-center">
+                                    <button id="send" class="btn btn-primary">Send</button>
+                                    <button id="clear" class="btn btn-danger">Clear</button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+
+        </div>
     </div>
+
 </div>
 
 <script src="js/game.js"></script>

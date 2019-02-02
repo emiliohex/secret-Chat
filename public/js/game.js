@@ -179,7 +179,7 @@ if (socket != undefined) {
     //Get Status From server
     socket.on('status', function (data) {
         //get message status
-        setStatus((typeof data === 'object') ? data.message : data);
+        setStatus(data);
 
         //if status is clear,clear text
         if (data.clear) {
@@ -199,7 +199,7 @@ if (socket != undefined) {
                 to: currentChatWith
             });
 
-            textarea.value("");
+            $("#textarea").val('').blur();
 
             event.preventDefault();
         }
@@ -213,7 +213,7 @@ if (socket != undefined) {
             to: currentChatWith
         });
 
-        textarea.value("");
+        $("#textarea").val('').blur();
     });
 
     //Handle Chat Clear
