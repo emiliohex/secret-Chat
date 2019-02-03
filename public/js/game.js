@@ -1,15 +1,17 @@
 
 
-var localUserName;
-var selectedUserToChat;
-var currentChatWith;
+var localUserName;// user name which uses the chat
+var selectedUserToChat;// user name which have been selected to chat with
+var currentChatWith;// user name which the local user is talking with
 
 
+
+//aux func for getting an element
 var element = function (id) {
     return document.getElementById(id);
 }
 
-
+//validate login form request
 
 function validateForm() {
     if ($("#userNameLogin").val().length < 1 || $("#userPasswordLogin").val().length < 1) {
@@ -20,10 +22,14 @@ function validateForm() {
     }
 }
 
+//show error in case login detailes are incorrect
+
 function showError(error) {
     $("#form-error").html(error);
     $("#form-error").show();
 }
+
+//func open's chat window when user selected from menu
 
 function openChatWith(userName) {
     selectedUserToChat = userName;
@@ -33,7 +39,7 @@ function openChatWith(userName) {
     console.log("current chat with:");
     console.log(currentChatWith);
 
-    // socket.emit('request for chat messages', { with: currentChatWith });
+  
 
     setTimeout(() => {
         $("#chat-box").show();
@@ -70,25 +76,13 @@ $("#sign-in").on('click', function () {
 
 //Get Element
 var connectedUsersList = element('connectedUsers');
-var status = element('status');
 var messages = element('messages');
 var textarea = element('textarea');
 var username = element('username');
 var clear = element('clear');
 
-//set default status
-var statusDefault = status.textContent;
 
-var setStatus = function (s) {
-    //set status
-    status.textContent = s;
 
-    if (s !== statusDefault) {
-        var delay = setTimeout(function () {
-            setStatus(statusDefault);
-        }, 4000);
-    }
-}
 
 //Connect to socket.io
 var socket = io.connect();
@@ -166,25 +160,11 @@ if (socket != undefined) {
                 messages.appendChild(message);
                 messages.insertBefore(message, messages.firstChild);
             }
-            // if(!$("#chat-box").is(":visible")){
-            //     setTimeout(()=>{
-            //         $("#chat-box").show();
-            //     },1000);
-            // }
 
         }
     });
 
-    //Get Status From server
-    socket.on('status', function (data) {
-        //get message status
-        setStatus(data);
 
-        //if status is clear,clear text
-        if (data.clear) {
-            textarea.value = '';
-        }
-    });
 
     //Handle Input
     textarea.addEventListener('keydown', function (event) {

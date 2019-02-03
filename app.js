@@ -5,12 +5,18 @@ const exphbs = require('express-handlebars');
 var socket = require('socket.io')
 var fs = require('fs');
 
+//fetch users from 'database'
 
 var data = fs.readFileSync('users.json');
-var users = JSON.parse(data);
+var users = JSON.parse(data);//key:user name, value:password
 
+var socketIdToName = {};//aux to find name by socket id
+var connectedUsers = {};//aux to find connected users:key-name,value-socket id
+var UserMessages = {};//aux to find user's messages along the chat
+
+
+//func checks if the login detailes are valid
 var detailesAreValid = function (name, password) {
-
   if (name in users) {
     if (users[name] == password) {
       return true;
@@ -20,9 +26,7 @@ var detailesAreValid = function (name, password) {
   }
 }
 
-var socketIdToName = {};
-var connectedUsers = {};
-var UserMessages = {};
+
 
 
 var hbs = exphbs.create({
@@ -56,9 +60,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/settings', (req, res) => {
-  res.send(gameSettings);
-});
 
 //socket & game variables setup
 var io = socket(server);
@@ -67,13 +68,7 @@ var io = socket(server);
 io.on('connection', function (socket) {
   console.log("connected new socket");
 
-
-  //create function to send status
-  sendStatus = function (s) {
-    socket.emit('status', s);
-  }
-
-
+//Handle new login request
   socket.on('new connection', function (data, callback) {
 
     if (!detailesAreValid(data.userName, data.userPassword)) {
@@ -98,47 +93,25 @@ io.on('connection', function (socket) {
   });
 
 
-
-  // socket.on('request for chat messages', function (data) {
-  //   console.log("data.with:");
-  //   console.log(data.with);
-
-  //   socket.emit('output', { Messages: UserMessages[socketIdToName[socket.id]] });
-  //   io.sockets.connected[connectedUsers[data.with]].emit('output', { Messages: UserMessages[data.with] });
-  // });
-
-
-
   //Handle input events
   socket.on('input', function (data) {
     let theMessage = data.message;
 
 
     //Check for name and message
-    if (theMessage == '') {
-      //Send error status
-      sendStatus('Please enter a message');
-    } else {
+    if (!theMessage == '') {
+
       //Insert message
 
-      console.log("data.from:");
-      console.log(data.from);
-      console.log("data.to:");
-      console.log(data.to);
 
       let newMessageBlock = [data.from, theMessage];
       UserMessages[data.from].push(newMessageBlock);
-    
       UserMessages[data.to].push(newMessageBlock);
 
-      socket.emit('new message', {message:[newMessageBlock],from:data.from});
-      io.sockets.connected[connectedUsers[data.to]].emit('new message', {message:[newMessageBlock],from:data.from});
+      socket.emit('new message', { message: [newMessageBlock], from: data.from });
+      io.sockets.connected[connectedUsers[data.to]].emit('new message', { message: [newMessageBlock], from: data.from });
 
-      //send status object
-      sendStatus({
-        message: 'Message sent',
-        clear: true
-      })
+
 
     }
   });
@@ -150,6 +123,8 @@ io.on('connection', function (socket) {
     socket.emit('cleared');
 
   });
+
+  //Handle socket disconnect
 
   socket.on('disconnect', (data) => {
 
